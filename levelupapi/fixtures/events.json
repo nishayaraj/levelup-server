@@ -1,0 +1,24 @@
+[
+  {
+      "model": "levelupapi.event",
+      "pk": 1,
+      "fields": {
+          "game": 1,
+          "description": "Carrom expert level games",
+          "date": "2022-11-17",
+          "time": "09:00",
+          "organizer": 1
+       }
+  },
+  {
+    "model": "levelupapi.event",
+    "pk": 2,
+    "fields": {
+        "game": 2,
+        "description": "Carrom intermediate level games",
+        "date": "2022-11-19",
+        "time": "09:30",
+        "organizer": 1
+     }
+  }
+]

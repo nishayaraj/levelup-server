@@ -32,11 +32,21 @@ class EventView(ViewSet):
         """
 
         print("def list(self, request):")
+        # this will grab the 'uid' from as a query param from the 'get' method retrieving all events
+        
         events = Event.objects.all()
         game = request.query_params.get('game', None)
         if game is not None:
            events = events.filter(game_id=game)
     
+        uid = request.query_params.get('uid', None)
+        gamer = Gamer.objects.get(uid=uid)
+
+        for event in events:
+    # Check to see if there is a row in the Event Games table that has the passed in gamer and event
+            event.joined = len(EventGamer.objects.filter(
+            gamer=gamer, event=event)) > 0
+
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
     
@@ -110,5 +120,5 @@ class EventSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Event
-        fields = ('id', 'description', 'date', 'time', 'game', 'organizer')
+        fields = ('id', 'description', 'date', 'time', 'game', 'organizer', 'joined')
         depth = 2
